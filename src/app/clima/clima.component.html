@@ -1,0 +1,73 @@
+<div class="container" *ngIf="!actualizarInformacion">
+    <div>
+        Clima
+    </div>
+    <div>
+        Chile - {{regionSeleccionada.region}}
+    </div>
+    <div class="regiones">
+        <table>
+            <tr *ngFor="let item of climas">
+                <td><button (click)="seleccionarRegion(item)">{{item.region}}</button></td>
+            </tr>
+        </table>
+    </div>
+    <div class="climas">
+        <table>
+            <tr *ngFor="let item of regionSeleccionada.clima">
+                <td (click)="setActualizarInformacion()">{{item.dia}}</td>
+                <td>
+                    <img *ngIf="item.estado == 'Soleado'" width="30" height="30" src="https://www.onlygfx.com/wp-content/uploads/2018/09/4-clipart-sun-1.png" />
+                    <img *ngIf="item.estado == 'Nublado'" width="30" height="30" src="https://img.icons8.com/emoji/452/sun-behind-cloud.png" />
+                    <img *ngIf="item.estado == 'Lluvioso'" width="30" height="30" src="https://freepngimg.com/thumb/water/76727-vector-of-drop-water-drop-water-free-download-image.png" />
+                    <img *ngIf="item.estado == 'Tormenta'" width="30" height="30" src="https://static.vecteezy.com/system/resources/previews/001/192/726/non_2x/lightning-cloud-png.png" />
+                </td>
+                <td>{{item.temperatura}}</td>
+                <td>{{item.estado}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- FORMULARIO -->
+
+<div class="container" *ngIf="actualizarInformacion">
+    <div class="informacion">
+        <div>
+            Región<br>
+            <select [(ngModel)]="regionSelect">
+                <option *ngFor="let item of climas" [value]="item.region">
+                    {{item.region}}
+                </option>
+            </select>
+        </div>
+        <div>
+
+            <p>
+                Estado del clima:<br>
+
+                <input type="radio" checked value="Soleado" (change)="onItemChange($event.target.value)"> Soleado<br>
+
+                <input type="radio" value="Nublado" (change)="onItemChange($event.target.value)"> Nublado<br>
+
+                <input type="radio" value="Lluvioso" (change)="onItemChange($event.target.value)"> Lluvioso<br>
+
+                <input type="radio" value="Tormenta" (change)="onItemChange($event.target.value)"> Tormenta
+
+            </p>
+        </div>
+        <div>
+            Día:<br>
+            <select [(ngModel)]="diaSelect">
+                    <option value="Lunes">Lunes</option>
+                    <option value="Martes">Martes</option>
+                    <option value="Miércoles">Miércoles</option>
+                    <option value="Jueves">Jueves</option>
+                    <option value="Viernes">Viernes</option>
+                    <option value="Sábado">Sábado</option>
+                    <option value="Domingo">Domingo</option>
+                </select>
+        </div>
+    </div>
+    <p><input type="button" (click)="onSubmit()" value="Actualizar"></p>
+</div>
